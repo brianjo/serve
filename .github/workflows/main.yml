@@ -28,7 +28,3 @@ jobs:
       id: build
     - name: Get output time
       run: echo "The time was ${{ steps.build.outputs.time }}"
-    - name: Print List of Files
-      run: |
-       cd build/html
-       ls
