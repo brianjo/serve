@@ -1,0 +1,31 @@
+on: [push]
+
+jobs:
+  build_docs_job:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Dependencies
+      run: |
+        echo `python3 --version`
+        sudo apt-get install -y python-setuptools
+        sudo apt-get install -y python3-sphinx
+        python3 -m pip install --upgrade pip
+        python3 -m pip install recommonmark
+        python3 -m pip install katex
+        python3 -m pip install sphinxcontrib.katex
+    - name: Check env
+      run: echo `which spinx-build`
+    - name: Build the docset
+      run: cd ./docs/sphinx ; make html
+      id: build
+    - name: Get output time
+      run: echo "The time was ${{ steps.build.outputs.time }}"
+    - name: Print List of Files
+      run: |
+       cd build/html
+       ls
