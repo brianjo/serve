@@ -200,7 +200,7 @@
 </ul>
 <p class="caption"><span class="caption-text">TorchServe Usage</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="server.html">Running the TorchServe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">Running TorchServe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="batch_inference_with_ts.html">Batch Inference with TorchServe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom_service.html">Custom Service</a></li>
 </ul>
@@ -249,7 +249,7 @@
       <li class="pytorch-breadcrumbs-aside">
         
             
-            <a href="_sources/default_handlers.rst.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
+            <a href="_sources/default_handlers.md.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
           
         
       </li>
@@ -281,36 +281,36 @@
 <div class="section" id="image-classifier">
 <h2>image_classifier<a class="headerlink" href="#image-classifier" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Description : Handles image classification models trained on imagenet dataset.</p></li>
-<li><p>Input : RGB image</p></li>
-<li><p>Output : Top 5 predictions and their respective probability of the image</p></li>
+<li>Description : Handles image classification models trained on imagenet dataset.</li>
+<li>Input : RGB image</li>
+<li>Output : Top 5 predictions and their respective probability of the image</li>
 </ul>
 <p>For more details refer <a class="reference external" href="../examples/image_classifier">examples</a></p>
 </div>
 <div class="section" id="image-segmenter">
 <h2>image_segmenter<a class="headerlink" href="#image-segmenter" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Description : Handles image segmentation models trained on imagenet dataset.</p></li>
-<li><p>Input : RGB image</p></li>
-<li><p>Output : Output shape as [CL H W], CL - number of classes, H - height and W - width.</p></li>
+<li>Description : Handles image segmentation models trained on imagenet dataset.</li>
+<li>Input : RGB image</li>
+<li>Output : Output shape as [CL H W], CL - number of classes, H - height and W - width.</li>
 </ul>
 <p>For more details refer <a class="reference external" href="../examples/image_segmenter">examples</a></p>
 </div>
 <div class="section" id="object-detector">
 <h2>object_detector<a class="headerlink" href="#object-detector" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Description : Handles object detection models.</p></li>
-<li><p>Input : RGB image</p></li>
-<li><p>Output : List of detected classes and bounding boxes respectively</p></li>
+<li>Description : Handles object detection models.</li>
+<li>Input : RGB image</li>
+<li>Output : List of detected classes and bounding boxes respectively</li>
 </ul>
 <p>For more details refer <a class="reference external" href="../examples/object_detector">examples</a></p>
 </div>
 <div class="section" id="text-classifier">
 <h2>text_classifier<a class="headerlink" href="#text-classifier" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Description : Handles models trained on imagenet dataset.</p></li>
-<li><p>Input : text file</p></li>
-<li><p>Output : Class of input text</p></li>
+<li>Description : Handles models trained on imagenet dataset.</li>
+<li>Input : text file</li>
+<li>Output : Class of input text</li>
 </ul>
 <p>For more details refer <a class="reference external" href="../examples/text_classification">examples</a></p>
 </div>
@@ -380,11 +380,20 @@
   
 
      
-       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+       <script type="text/javascript">
+           var DOCUMENTATION_OPTIONS = {
+               URL_ROOT:'./',
+               VERSION:'master',
+               LANGUAGE:'None',
+               COLLAPSE_INDEX:false,
+               FILE_SUFFIX:'.html',
+               HAS_SOURCE:  true,
+               SOURCELINK_SUFFIX: '.txt'
+           };
+       </script>
          <script type="text/javascript" src="_static/jquery.js"></script>
          <script type="text/javascript" src="_static/underscore.js"></script>
          <script type="text/javascript" src="_static/doctools.js"></script>
-         <script type="text/javascript" src="_static/language_data.js"></script>
          <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
          <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
          <script type="text/javascript" src="_static/katex_autorenderer.js"></script>
@@ -394,6 +403,7 @@
 
   <script type="text/javascript" src="_static/js/vendor/popper.min.js"></script>
   <script type="text/javascript" src="_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
   <script type="text/javascript" src="_static/js/theme.js"></script>
 
   <script type="text/javascript">
@@ -584,6 +594,10 @@
       scrollToAnchor.bind();
       highlightNavigation.bind();
       mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Remove any empty p tags that Sphinx adds
+      $("[data-tags='null']").remove();
 
       // Add class to links that have code blocks, since we cannot create links in code blocks
       $("article.pytorch-article a span.pre").each(function(e) {

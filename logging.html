@@ -200,7 +200,7 @@
 </ul>
 <p class="caption"><span class="caption-text">TorchServe Usage</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="server.html">Running the TorchServe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">Running TorchServe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="batch_inference_with_ts.html">Batch Inference with TorchServe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom_service.html">Custom Service</a></li>
 </ul>
@@ -249,7 +249,7 @@
       <li class="pytorch-breadcrumbs-aside">
         
             
-            <a href="_sources/logging.rst.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
+            <a href="_sources/logging.md.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
           
         
       </li>
@@ -278,7 +278,7 @@
   <div class="section" id="logging-on-torchserve">
 <h1>Logging on Torchserve<a class="headerlink" href="#logging-on-torchserve" title="Permalink to this headline">¶</a></h1>
 <p>In this document we will go through logging mechanism in TorchServe. We will also go over how to modify the behavior of logging in model-server. Logging in TorchServe also covers
-metrics, as metrics are logged into a file. To further understand how to customize metrics or define custom logging layouts, refer to the <a class="reference external" href="metrics.md">metrics document</a></p>
+metrics, as metrics are logged into a file. To further understand how to customize metrics or define custom logging layouts, refer to the <a class="reference internal" href="metrics.html"><span class="doc">metrics document</span></a></p>
 </div>
 <div class="section" id="pre-requisites">
 <h1>Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this headline">¶</a></h1>
@@ -289,14 +289,14 @@ TorchServe.</p>
 <div class="section" id="types-of-logs">
 <h1>Types of logs<a class="headerlink" href="#types-of-logs" title="Permalink to this headline">¶</a></h1>
 <p>Torchserve currently provides three types of logs.</p>
-<ol class="arabic simple">
-<li><p>Access Logs.</p></li>
-<li><p>TorchServe Logs.</p></li>
+<ol class="simple">
+<li>Access Logs.</li>
+<li>TorchServe Logs.</li>
 </ol>
 <div class="section" id="access-logs">
 <h2>Access Logs:<a class="headerlink" href="#access-logs" title="Permalink to this headline">¶</a></h2>
 <p>These logs collect the access pattern to Torchserve. The configuration pertaining to access logs are as follows,</p>
-<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">log4j.logger.ACCESS_LOG</span> <span class="o">=</span> <span class="s">INFO, access_log</span>
+<div class="highlight-properties"><div class="highlight"><pre><span></span><span class="na">log4j.logger.ACCESS_LOG</span> <span class="o">=</span> <span class="s">INFO, access_log</span>
 
 
 <span class="na">log4j.appender.access_log</span> <span class="o">=</span> <span class="s">org.apache.log4j.RollingFileAppender</span>
@@ -309,17 +309,17 @@ TorchServe.</p>
 </div>
 <p>As defined in the properties file, the access logs are collected in {LOG_LOCATION}/access_log.log file. When we load the TorchServe
 with a model and run inference against the server, the following logs are collected into the access_log.log</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>2018-10-15 13:56:18,976 [INFO ] BackendWorker-9000 ACCESS_LOG - /127.0.0.1:64003 &quot;POST /predictions/resnet-18 HTTP/1.1&quot; 200 118
+<div class="highlight-text"><div class="highlight"><pre><span></span>2018-10-15 13:56:18,976 [INFO ] BackendWorker-9000 ACCESS_LOG - /127.0.0.1:64003 &quot;POST /predictions/resnet-18 HTTP/1.1&quot; 200 118
 </pre></div>
 </div>
-<p>The above log tells us that a successful <code class="docutils literal notranslate"><span class="pre">POST</span></code> call to <code class="docutils literal notranslate"><span class="pre">/predictions/resnet-18</span></code> was made by remote host <code class="docutils literal notranslate"><span class="pre">127.0.0.1:64003</span></code> it took <code class="docutils literal notranslate"><span class="pre">118</span></code>ms to complete this request.</p>
+<p>The above log tells us that a successful <code class="docutils literal"><span class="pre">POST</span></code> call to <code class="docutils literal"><span class="pre">/predictions/resnet-18</span></code> was made by remote host <code class="docutils literal"><span class="pre">127.0.0.1:64003</span></code> it took <code class="docutils literal"><span class="pre">118</span></code>ms to complete this request.</p>
 <p>These logs are useful to determine the current performance of the model-server as well as understand the requests received by model-server.</p>
 </div>
 <div class="section" id="torchserve-logs">
 <h2>TorchServe Logs<a class="headerlink" href="#torchserve-logs" title="Permalink to this headline">¶</a></h2>
 <p>These logs collect all the logs from TorchServe and from the backend workers (the custom model code).
 The default configuration pertaining to ts logs are as follows:</p>
-<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">log4j.logger.com.amazonaws.ml.ts</span> <span class="o">=</span> <span class="s">DEBUG, ts_log</span>
+<div class="highlight-properties"><div class="highlight"><pre><span></span><span class="na">log4j.logger.com.amazonaws.ml.ts</span> <span class="o">=</span> <span class="s">DEBUG, ts_log</span>
 
 
 <span class="na">log4j.appender.ts_log</span> <span class="o">=</span> <span class="s">org.apache.log4j.RollingFileAppender</span>
@@ -330,49 +330,53 @@ The default configuration pertaining to ts logs are as follows:</p>
 <span class="na">log4j.appender.ts_log.layout.ConversionPattern</span> <span class="o">=</span> <span class="s">%d{ISO8601} [%-5p] %t %c - %m%n</span>
 </pre></div>
 </div>
-<p>This configuration by default dumps all the logs above <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> level.</p>
+<p>This configuration by default dumps all the logs above <code class="docutils literal"><span class="pre">DEBUG</span></code> level.</p>
 <div class="section" id="generating-and-logging-custom-logs">
 <h3>Generating and logging custom logs<a class="headerlink" href="#generating-and-logging-custom-logs" title="Permalink to this headline">¶</a></h3>
 <p>As a user of TorchServe, you might want to log custom logs into the log files. This could be for debug purposes or
-to log any errors. To accomplish this, simply print the required logs to <code class="docutils literal notranslate"><span class="pre">stdout/stderr</span></code>. TorchServe will capture the logs generated by the
+to log any errors. To accomplish this, simply print the required logs to <code class="docutils literal"><span class="pre">stdout/stderr</span></code>. TorchServe will capture the logs generated by the
 backend workers and log it into the log file. Some examples of logs are as follows</p>
-<ol class="arabic">
-<li><p>Messages printed to stderr</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>2018-10-14 16:46:51,656 [WARN ] W-9000-stderr org.pytorch.serve.wlm.WorkerLifeCycle - [16:46:51] src/nnvm/legacy_json_util.cc:209: Loading symbol saved by previous version v0.8.0. Attempting to upgrad\
+<ol class="simple">
+<li>Messages printed to stderr</li>
+</ol>
+<div class="highlight-text"><div class="highlight"><pre><span></span>2018-10-14 16:46:51,656 [WARN ] W-9000-stderr org.pytorch.serve.wlm.WorkerLifeCycle - [16:46:51] src/nnvm/legacy_json_util.cc:209: Loading symbol saved by previous version v0.8.0. Attempting to upgrad\
 e...
 2018-10-14 16:46:51,657 [WARN ] W-9000-stderr org.pytorch.serve.wlm.WorkerLifeCycle - [16:46:51] src/nnvm/legacy_json_util.cc:217: Symbol successfully upgraded!
 </pre></div>
 </div>
-</li>
-<li><p>Messages printed to stdout</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>2018-10-14 16:59:59,926 [INFO ] W-9000-stdout org.pytorch.serve.wlm.WorkerLifeCycle - preprocess time: 3.60
+<ol class="simple">
+<li>Messages printed to stdout</li>
+</ol>
+<div class="highlight-text"><div class="highlight"><pre><span></span>2018-10-14 16:59:59,926 [INFO ] W-9000-stdout org.pytorch.serve.wlm.WorkerLifeCycle - preprocess time: 3.60
 2018-10-14 16:59:59,926 [INFO ] W-9000-stdout org.pytorch.serve.wlm.WorkerLifeCycle - inference time: 117.31
 2018-10-14 16:59:59,926 [INFO ] W-9000-stdout org.pytorch.serve.wlm.WorkerLifeCycle - postprocess time: 8.52
 </pre></div>
 </div>
-</li>
-</ol>
 </div>
 </div>
 </div>
 <div class="section" id="modifying-the-behavior-of-the-logs">
 <h1>Modifying the behavior of the logs<a class="headerlink" href="#modifying-the-behavior-of-the-logs" title="Permalink to this headline">¶</a></h1>
-<p>In order to modify the default behavior of the logging, you could define <code class="docutils literal notranslate"><span class="pre">log4j.properties</span></code> file. There are two ways of starting
+<p>In order to modify the default behavior of the logging, you could define <code class="docutils literal"><span class="pre">log4j.properties</span></code> file. There are two ways of starting
 TorchServe with custom logs</p>
-<blockquote>
-<div><p>Once you define custom <code class="docutils literal notranslate"><span class="pre">log4j.properties</span></code>, add this to the</p>
-</div></blockquote>
-<p><code class="docutils literal notranslate"><span class="pre">config.properties</span></code> file as follows</p>
-<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">vmargs</span><span class="o">=</span><span class="s">-Dlog4j.configuration=file:///path/to/custom/log4j.properties</span>
+<div class="section" id="provide-with-config-properties">
+<h2>Provide with config.properties<a class="headerlink" href="#provide-with-config-properties" title="Permalink to this headline">¶</a></h2>
+<p>Once you define custom <code class="docutils literal"><span class="pre">log4j.properties</span></code>, add this to the
+<code class="docutils literal"><span class="pre">config.properties</span></code> file as follows</p>
+<div class="highlight-properties"><div class="highlight"><pre><span></span><span class="na">vmargs</span><span class="o">=</span><span class="s">-Dlog4j.configuration=file:///path/to/custom/log4j.properties</span>
 </pre></div>
 </div>
 <p>Then start the TorchServe as follows</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ torchserve --start --ts-config /path/to/config.properties
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ torchserve --start --model-store /models --ts-config /path/to/config.properties
 </pre></div>
 </div>
+</div>
+<div class="section" id="provide-with-cli">
+<h2>Provide with CLI<a class="headerlink" href="#provide-with-cli" title="Permalink to this headline">¶</a></h2>
 <p>Alternatively, you could start the TorchServe with the following command as well</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ torchserve --start --log-config /path/to/custom/log4j.properties
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ torchserve --start --model-store /models --log-config /path/to/custom/log4j.properties
 </pre></div>
+</div>
 </div>
 </div>
 <div class="section" id="enable-asynchronous-logging">
@@ -380,8 +384,8 @@ TorchServe with custom logs</p>
 <p>If your model is super lightweight and seeking for high throughput, you can consider enable asynchronous logging.
 Note that log output maybe delayed and latest log might be lost if TorchServe is terminated unexpectedly.
 asynchronous logging is disabled by default.
-To enable asynchronous logging, add following property in <code class="docutils literal notranslate"><span class="pre">config.properties</span></code>:</p>
-<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">async_logging</span><span class="o">=</span><span class="s">true</span>
+To enable asynchronous logging, add following property in <code class="docutils literal"><span class="pre">config.properties</span></code>:</p>
+<div class="highlight-properties"><div class="highlight"><pre><span></span><span class="na">async_logging</span><span class="o">=</span><span class="s">true</span>
 </pre></div>
 </div>
 </div>
@@ -439,7 +443,11 @@ To enable asynchronous logging, add following property in <code class="docutils 
 </li>
 </ul>
 </li>
-<li><a class="reference internal" href="#modifying-the-behavior-of-the-logs">Modifying the behavior of the logs</a></li>
+<li><a class="reference internal" href="#modifying-the-behavior-of-the-logs">Modifying the behavior of the logs</a><ul>
+<li><a class="reference internal" href="#provide-with-config-properties">Provide with config.properties</a></li>
+<li><a class="reference internal" href="#provide-with-cli">Provide with CLI</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#enable-asynchronous-logging">Enable asynchronous logging</a></li>
 </ul>
 
@@ -455,11 +463,20 @@ To enable asynchronous logging, add following property in <code class="docutils 
   
 
      
-       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+       <script type="text/javascript">
+           var DOCUMENTATION_OPTIONS = {
+               URL_ROOT:'./',
+               VERSION:'master',
+               LANGUAGE:'None',
+               COLLAPSE_INDEX:false,
+               FILE_SUFFIX:'.html',
+               HAS_SOURCE:  true,
+               SOURCELINK_SUFFIX: '.txt'
+           };
+       </script>
          <script type="text/javascript" src="_static/jquery.js"></script>
          <script type="text/javascript" src="_static/underscore.js"></script>
          <script type="text/javascript" src="_static/doctools.js"></script>
-         <script type="text/javascript" src="_static/language_data.js"></script>
          <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
          <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
          <script type="text/javascript" src="_static/katex_autorenderer.js"></script>
@@ -469,6 +486,7 @@ To enable asynchronous logging, add following property in <code class="docutils 
 
   <script type="text/javascript" src="_static/js/vendor/popper.min.js"></script>
   <script type="text/javascript" src="_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
   <script type="text/javascript" src="_static/js/theme.js"></script>
 
   <script type="text/javascript">
@@ -659,6 +677,10 @@ To enable asynchronous logging, add following property in <code class="docutils 
       scrollToAnchor.bind();
       highlightNavigation.bind();
       mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Remove any empty p tags that Sphinx adds
+      $("[data-tags='null']").remove();
 
       // Add class to links that have code blocks, since we cannot create links in code blocks
       $("article.pytorch-article a span.pre").each(function(e) {

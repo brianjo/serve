@@ -200,7 +200,7 @@
 </ul>
 <p class="caption"><span class="caption-text">TorchServe Usage</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="server.html">Running the TorchServe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">Running TorchServe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="batch_inference_with_ts.html">Batch Inference with TorchServe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom_service.html">Custom Service</a></li>
 </ul>
@@ -249,7 +249,7 @@
       <li class="pytorch-breadcrumbs-aside">
         
             
-            <a href="_sources/rest_api.rst.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
+            <a href="_sources/rest_api.md.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
           
         
       </li>
@@ -280,11 +280,11 @@
 <p>TorchServe use RESTful API for both inference and management calls. The API is compliance with <a class="reference external" href="https://swagger.io/specification/">OpenAPI specification 3.0</a>. User can easily generate client side code for Java, Scala, C#, Javascript use <a class="reference external" href="https://swagger.io/swagger-codegen/">swagger codegen</a>.</p>
 <p>When TorchServe startup, it start two web services:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="inference_api.md">Inference API</a></p></li>
-<li><p><a class="reference external" href="management_api.md">Management API</a></p></li>
+<li><a class="reference internal" href="inference_api.html"><span class="doc">Inference API</span></a></li>
+<li><a class="reference internal" href="management_api.html"><span class="doc">Management API</span></a></li>
 </ul>
 <p>By default, TorchServe listening on 8080 port for Inference API and 8081 on Management API.
-Both API is only accessible from localhost. Please see <a class="reference external" href="configuration.md">TorchServe Configuration</a> for how to enable access from remote host.</p>
+Both API is only accessible from localhost. Please see <a class="reference internal" href="configuration.html"><span class="doc">TorchServe Configuration</span></a> for how to enable access from remote host.</p>
 </div>
 
 
@@ -345,11 +345,20 @@ Both API is only accessible from localhost. Please see <a class="reference exter
   
 
      
-       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+       <script type="text/javascript">
+           var DOCUMENTATION_OPTIONS = {
+               URL_ROOT:'./',
+               VERSION:'master',
+               LANGUAGE:'None',
+               COLLAPSE_INDEX:false,
+               FILE_SUFFIX:'.html',
+               HAS_SOURCE:  true,
+               SOURCELINK_SUFFIX: '.txt'
+           };
+       </script>
          <script type="text/javascript" src="_static/jquery.js"></script>
          <script type="text/javascript" src="_static/underscore.js"></script>
          <script type="text/javascript" src="_static/doctools.js"></script>
-         <script type="text/javascript" src="_static/language_data.js"></script>
          <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
          <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
          <script type="text/javascript" src="_static/katex_autorenderer.js"></script>
@@ -359,6 +368,7 @@ Both API is only accessible from localhost. Please see <a class="reference exter
 
   <script type="text/javascript" src="_static/js/vendor/popper.min.js"></script>
   <script type="text/javascript" src="_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
   <script type="text/javascript" src="_static/js/theme.js"></script>
 
   <script type="text/javascript">
@@ -549,6 +559,10 @@ Both API is only accessible from localhost. Please see <a class="reference exter
       scrollToAnchor.bind();
       highlightNavigation.bind();
       mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Remove any empty p tags that Sphinx adds
+      $("[data-tags='null']").remove();
 
       // Add class to links that have code blocks, since we cannot create links in code blocks
       $("article.pytorch-article a span.pre").each(function(e) {

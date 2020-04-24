@@ -32,7 +32,7 @@
   <link rel="stylesheet" href="_static/katex-math.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Running the TorchServe" href="server.html" />
+    <link rel="next" title="Running TorchServe" href="server.html" />
     <link rel="prev" title="TorchServe REST API" href="rest_api.html" /> 
 
   
@@ -200,7 +200,7 @@
 </ul>
 <p class="caption"><span class="caption-text">TorchServe Usage</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="server.html">Running the TorchServe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">Running TorchServe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="batch_inference_with_ts.html">Batch Inference with TorchServe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom_service.html">Custom Service</a></li>
 </ul>
@@ -249,7 +249,7 @@
       <li class="pytorch-breadcrumbs-aside">
         
             
-            <a href="_sources/configuration.rst.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
+            <a href="_sources/configuration.md.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
           
         
       </li>
@@ -282,59 +282,54 @@
 <h2>Environment variables<a class="headerlink" href="#environment-variables" title="Permalink to this headline">¶</a></h2>
 <p>User can set environment variables to change TorchServe behavior, following is a list of variables that user can set for TorchServe:</p>
 <ul class="simple">
-<li><p>JAVA_HOME</p></li>
-<li><p>PYTHONPATH</p></li>
-<li><p>TS_CONFIG_FILE</p></li>
-<li><p>LOG_LOCATION</p></li>
-<li><p>METRICS_LOCATION</p></li>
+<li>JAVA_HOME</li>
+<li>PYTHONPATH</li>
+<li>TS_CONFIG_FILE</li>
+<li>LOG_LOCATION</li>
+<li>METRICS_LOCATION</li>
 </ul>
 <p><strong>Note:</strong> environment variable has higher priority that command line or config.properties. It will override other property values.</p>
 </div>
 <div class="section" id="command-line-parameters">
 <h2>Command line parameters<a class="headerlink" href="#command-line-parameters" title="Permalink to this headline">¶</a></h2>
 <p>User can following parameters to start TorchServe, those parameters will override default TorchServe behavior:</p>
-<ul>
-<li><p><strong>–ts-config</strong> TorchServe will load specified configuration file if TS_CONFIG_FILE is not set.</p></li>
-<li><p><strong>–model-store</strong> This parameter will override <code class="docutils literal notranslate"><span class="pre">model_store</span></code> property in config.properties file.</p></li>
-<li><p><strong>–models</strong> This parameter will override <a href="#id1"><span class="problematic" id="id2">`</span></a>load_models’ property in config.properties.</p></li>
-<li><p><strong>–log-config</strong> This parameter will override default log4j.properties.</p></li>
-<li><p><strong>–foreground</strong> This parameter will run the TorchServe in foreground. If this option is
-.. code-block:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">disabled</span><span class="p">,</span> <span class="n">the</span> <span class="n">TorchServe</span> <span class="n">will</span> <span class="n">run</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">background</span><span class="o">.</span>
-</pre></div>
-</div>
-</li>
+<ul class="simple">
+<li><strong>–ts-config</strong> TorchServe will load specified configuration file if TS_CONFIG_FILE is not set.</li>
+<li><strong>–model-store</strong> This parameter will override <code class="docutils literal"><span class="pre">model_store</span></code> property in config.properties file.</li>
+<li><strong>–models</strong> This parameter will override `load_models’ property in config.properties.</li>
+<li><strong>–log-config</strong> This parameter will override default log4j.properties.</li>
+<li><strong>–foreground</strong> This parameter will run the TorchServe in foreground. If this option is
+disabled, the TorchServe will run in the background.</li>
 </ul>
-<p>See <a class="reference external" href="server.md">Running the TorchServe</a> for detail.</p>
+<p>See <a class="reference internal" href="server.html"><span class="doc">Running the TorchServe</span></a> for detail.</p>
 </div>
 <div class="section" id="config-properties-file">
 <h2>config.properties file<a class="headerlink" href="#config-properties-file" title="Permalink to this headline">¶</a></h2>
-<p>TorchServe use a <code class="docutils literal notranslate"><span class="pre">config.properties</span></code> file to store configurations. TorchServe use following order to locate this <code class="docutils literal notranslate"><span class="pre">config.properties</span></code> file:</p>
-<ol class="arabic simple">
-<li><p>if <code class="docutils literal notranslate"><span class="pre">TS_CONFIG_FILE</span></code> environment variable is set, TorchServe will load the configuration from the environment variable.</p></li>
-<li><p>if <code class="docutils literal notranslate"><span class="pre">--ts-config</span></code> parameter is passed to <code class="docutils literal notranslate"><span class="pre">torchserve</span></code>, TorchServe will load the configuration from the parameter.</p></li>
-<li><p>if there is a <code class="docutils literal notranslate"><span class="pre">config.properties</span></code> in current folder where user start the <code class="docutils literal notranslate"><span class="pre">torchserve</span></code>, TorchServe will load the <code class="docutils literal notranslate"><span class="pre">config.properties</span></code> file form current working directory.</p></li>
-<li><p>If none of above is specified, TorchServe will load built-in configuration with default values.</p></li>
+<p>TorchServe use a <code class="docutils literal"><span class="pre">config.properties</span></code> file to store configurations. TorchServe use following order to locate this <code class="docutils literal"><span class="pre">config.properties</span></code> file:</p>
+<ol class="simple">
+<li>if <code class="docutils literal"><span class="pre">TS_CONFIG_FILE</span></code> environment variable is set, TorchServe will load the configuration from the environment variable.</li>
+<li>if <code class="docutils literal"><span class="pre">--ts-config</span></code> parameter is passed to <code class="docutils literal"><span class="pre">torchserve</span></code>, TorchServe will load the configuration from the parameter.</li>
+<li>if there is a <code class="docutils literal"><span class="pre">config.properties</span></code> in current folder where user start the <code class="docutils literal"><span class="pre">torchserve</span></code>, TorchServe will load the <code class="docutils literal"><span class="pre">config.properties</span></code> file form current working directory.</li>
+<li>If none of above is specified, TorchServe will load built-in configuration with default values.</li>
 </ol>
 <div class="section" id="customize-jvm-options">
 <h3>Customize JVM options<a class="headerlink" href="#customize-jvm-options" title="Permalink to this headline">¶</a></h3>
-<p>The restrict TorchServe frontend memory footprint, certain JVM options is set via <strong>vmargs</strong> property in <code class="docutils literal notranslate"><span class="pre">config.properties</span></code> file</p>
+<p>The restrict TorchServe frontend memory footprint, certain JVM options is set via <strong>vmargs</strong> property in <code class="docutils literal"><span class="pre">config.properties</span></code> file</p>
 <ul class="simple">
-<li><p>default: N/A, use JVM default options</p></li>
+<li>default: N/A, use JVM default options</li>
 </ul>
 <p>User can adjust those JVM options for fit their memory requirement if needed.</p>
 </div>
 <div class="section" id="load-models-at-startup">
 <h3>Load models at startup<a class="headerlink" href="#load-models-at-startup" title="Permalink to this headline">¶</a></h3>
-<p>User can configure load models while TorchServe startup. TorchServe can load models from <code class="docutils literal notranslate"><span class="pre">model_store</span></code> or from HTTP(s) URL.</p>
+<p>User can configure load models while TorchServe startup. TorchServe can load models from <code class="docutils literal"><span class="pre">model_store</span></code> or from HTTP(s) URL.</p>
 <ul class="simple">
-<li><p>model_store</p>
-<ul>
-<li><p>standalone: default: N/A, load models from local disk is disabled. Following syntax can be used to configure lost of models to be loaded on startup :</p></li>
+<li>model_store<ul>
+<li>standalone: default: N/A, load models from local disk is disabled. Following syntax can be used to configure lost of models to be loaded on startup :</li>
 </ul>
 </li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># load all models present in model store</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># load all models present in model store</span>
 <span class="n">load_models</span><span class="o">=</span><span class="nb">all</span>
 <span class="c1"># load models from model store with mar names only</span>
 <span class="n">load_models</span><span class="o">=</span><span class="n">model1</span><span class="o">.</span><span class="n">mar</span><span class="p">,</span><span class="n">model2</span><span class="o">.</span><span class="n">mar</span>
@@ -342,65 +337,60 @@
 <span class="n">load_models</span><span class="o">=</span><span class="n">model1</span><span class="o">=</span><span class="n">model1</span><span class="o">.</span><span class="n">mar</span><span class="p">,</span><span class="n">model2</span><span class="o">=</span><span class="n">model2</span><span class="o">.</span><span class="n">mar</span>
 </pre></div>
 </div>
-<ul>
-<li><p>load_models</p>
-<ul>
-<li><p>standalone: default: N/A, no models will be load on startup.
-.. code-block:: python</p>
-<blockquote>
-<div><p>model_store=&lt;path to model store directory which stores the local mar files.&gt;</p>
-</div></blockquote>
-</li>
+<ul class="simple">
+<li>load_models<ul>
+<li>standalone: default: N/A, no models will be load on startup.</li>
 </ul>
 </li>
 </ul>
-<p><strong>Note:</strong> <code class="docutils literal notranslate"><span class="pre">model_store</span></code> and <code class="docutils literal notranslate"><span class="pre">load_models</span></code> property can be override by command line parameters.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">model_store</span><span class="o">=&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">model</span> <span class="n">store</span> <span class="n">directory</span> <span class="n">which</span> <span class="n">stores</span> <span class="n">the</span> <span class="n">local</span> <span class="n">mar</span> <span class="n">files</span><span class="o">.&gt;</span>
+</pre></div>
+</div>
+<p><strong>Note:</strong> <code class="docutils literal"><span class="pre">model_store</span></code> and <code class="docutils literal"><span class="pre">load_models</span></code> property can be override by command line parameters.</p>
 </div>
 <div class="section" id="configure-torchserve-listening-address-and-port">
 <h3>Configure TorchServe listening address and port<a class="headerlink" href="#configure-torchserve-listening-address-and-port" title="Permalink to this headline">¶</a></h3>
 <p>TorchServe doesn’t support authentication natively. To avoid unauthorized access, TorchServe only allows localhost access by default. Inference API is listening on 8080 port and accepting HTTP request. Management API is listening on 8081 port and accepting HTTP request. See <a class="reference external" href="#enable-ssl">Enable SSL</a> for configuring HTTPS.</p>
 <ul class="simple">
-<li><p>inference_address: inference API binding address, default: <a class="reference external" href="http://127.0.0.1:8080">http://127.0.0.1:8080</a></p></li>
-<li><p>management_address: management API binding address, default: <a class="reference external" href="http://127.0.0.1:8081">http://127.0.0.1:8081</a></p></li>
-<li><p>In order to run predictions on models via public-ip specify IP address as <code class="docutils literal notranslate"><span class="pre">0.0.0.0</span></code> to make is accessible over all network interfaces or to the explicit IP-address as shown in example below.</p></li>
+<li>inference_address: inference API binding address, default: http://127.0.0.1:8080</li>
+<li>management_address: management API binding address, default: http://127.0.0.1:8081</li>
+<li>In order to run predictions on models via public-ip specify IP address as <code class="docutils literal"><span class="pre">0.0.0.0</span></code> to make is accessible over all network interfaces or to the explicit IP-address as shown in example below.</li>
 </ul>
 <p>Here are a couple of examples:</p>
-<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c"># bind inference API to all network interfaces with SSL enabled</span>
+<div class="highlight-properties"><div class="highlight"><pre><span></span><span class="c"># bind inference API to all network interfaces with SSL enabled</span>
 <span class="na">inference_address</span><span class="o">=</span><span class="s">https://0.0.0.0:8443</span>
 </pre></div>
 </div>
-<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c"># bind inference API to private network interfaces</span>
+<div class="highlight-properties"><div class="highlight"><pre><span></span><span class="c"># bind inference API to private network interfaces</span>
 <span class="na">inference_address</span><span class="o">=</span><span class="s">https://172.16.1.10:8080</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="id3">
-<h3>Enable SSL<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
-<p>For users who want to enable HTTPs, you can change <code class="docutils literal notranslate"><span class="pre">inference_address</span></code> or <code class="docutils literal notranslate"><span class="pre">management_address</span></code> protocol from http to https. For example: <code class="docutils literal notranslate"><span class="pre">inference_address=https://127.0.0.1</span></code>. The default is port 443, however you can make TorchServe listen on whatever port you set to accept https requests. For example, to receive https traffic on port 8443, you would use: <code class="docutils literal notranslate"><span class="pre">inference_address=https://127.0.0.1:8443</span></code>.</p>
+<div class="section" id="enable-ssl">
+<h3>Enable SSL<a class="headerlink" href="#enable-ssl" title="Permalink to this headline">¶</a></h3>
+<p>For users who want to enable HTTPs, you can change <code class="docutils literal"><span class="pre">inference_address</span></code> or <code class="docutils literal"><span class="pre">management_address</span></code> protocol from http to https. For example: <code class="docutils literal"><span class="pre">inference_address=https://127.0.0.1</span></code>. The default is port 443, however you can make TorchServe listen on whatever port you set to accept https requests. For example, to receive https traffic on port 8443, you would use: <code class="docutils literal"><span class="pre">inference_address=https://127.0.0.1:8443</span></code>.</p>
 <p>You must also provide a certificate and private key to enable SSL. TorchServe supports two ways to configure SSL:</p>
-<ol class="arabic simple">
-<li><p>Use a keystore:</p>
-<ul class="simple">
-<li><p><strong>keystore:</strong> the keystore file location. If multiple private key entries exist in the keystore, the first one will be used.</p></li>
-<li><p><strong>keystore_pass</strong>: the keystore password. The password (if applicable) MUST be the same as keystore password.</p></li>
-<li><p><strong>keystore_type</strong>: the type of keystore. Default: PKCS12.</p></li>
+<ol class="simple">
+<li>Use a keystore:<ul>
+<li><strong>keystore:</strong> the keystore file location. If multiple private key entries exist in the keystore, the first one will be used.</li>
+<li><strong>keystore_pass</strong>: the keystore password. The password (if applicable) MUST be the same as keystore password.</li>
+<li><strong>keystore_type</strong>: the type of keystore. Default: PKCS12.</li>
 </ul>
 </li>
-<li><p>Use private-key/certificate files:</p>
-<ul class="simple">
-<li><p><strong>private_key_file</strong>: the private key file location. Supports both PKCS8 and OpenSSL private keys.</p></li>
-<li><p><strong>certificate_file</strong>: the X509 certificate chain file location.</p></li>
+<li>Use private-key/certificate files:<ul>
+<li><strong>private_key_file</strong>: the private key file location. Supports both PKCS8 and OpenSSL private keys.</li>
+<li><strong>certificate_file</strong>: the X509 certificate chain file location.</li>
 </ul>
 </li>
 </ol>
 <div class="section" id="examples">
 <h4>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h4>
-<p><strong>Option 1</strong>: Use a keystore; generate a keystore with Java’s keytool. Note the <code class="docutils literal notranslate"><span class="pre">storepass</span></code> argument expects you to create your own password.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>keytool -genkey -keyalg RSA -alias ts -keystore keystore.p12 -storepass changeit -storetype PKCS12 -validity <span class="m">3600</span> -keysize <span class="m">2048</span> -dname <span class="s2">&quot;CN=www.MY_TS.com, OU=Cloud Service, O=model server, L=Palo Alto, ST=California, C=US&quot;</span>
+<p><strong>Option 1</strong>: Use a keystore; generate a keystore with Java’s keytool. Note the <code class="docutils literal"><span class="pre">storepass</span></code> argument expects you to create your own password.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>keytool -genkey -keyalg RSA -alias ts -keystore keystore.p12 -storepass changeit -storetype PKCS12 -validity <span class="m">3600</span> -keysize <span class="m">2048</span> -dname <span class="s2">&quot;CN=www.MY_TS.com, OU=Cloud Service, O=model server, L=Palo Alto, ST=California, C=US&quot;</span>
 </pre></div>
 </div>
 <p>Config following property in config.properties:</p>
-<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">inference_address</span><span class="o">=</span><span class="s">https://127.0.0.1:8443</span>
+<div class="highlight-properties"><div class="highlight"><pre><span></span><span class="na">inference_address</span><span class="o">=</span><span class="s">https://127.0.0.1:8443</span>
 <span class="na">management_address</span><span class="o">=</span><span class="s">https://127.0.0.1:8444</span>
 <span class="na">keystore</span><span class="o">=</span><span class="s">keystore.p12</span>
 <span class="na">keystore_pass</span><span class="o">=</span><span class="s">changeit</span>
@@ -408,16 +398,23 @@
 </pre></div>
 </div>
 <p><strong>Option 2</strong>: Use private-key/certificate files; generate your self signed cert and key with OpenSSL:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl req -x509 -nodes -days <span class="m">365</span> -newkey rsa:2048 -keyout mykey.key -out mycert.pem
+<div class="highlight-bash"><div class="highlight"><pre><span></span>openssl req -x509 -nodes -days <span class="m">365</span> -newkey rsa:2048 -keyout mykey.key -out mycert.pem
 </pre></div>
 </div>
 <p>Config following property in config.properties:</p>
-<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="na">inference_address</span><span class="o">=</span><span class="s">https://127.0.0.1:8443</span>
+<div class="highlight-properties"><div class="highlight"><pre><span></span><span class="na">inference_address</span><span class="o">=</span><span class="s">https://127.0.0.1:8443</span>
 <span class="na">management_address</span><span class="o">=</span><span class="s">https://127.0.0.1:8444</span>
 <span class="na">private_key_file</span><span class="o">=</span><span class="s">mykey.key</span>
 <span class="na">certificate_file</span><span class="o">=</span><span class="s">mycert.pem</span>
 </pre></div>
 </div>
+<p>If you are using a self-signed certificate as shown above be sure to pass proper flags
+to your HTTP client before invoking a secure API request. For example with <code class="docutils literal"><span class="pre">curl</span></code>, you can
+pass <code class="docutils literal"><span class="pre">--insecure</span></code> flag. As in:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">--</span><span class="n">insecure</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">8443</span><span class="o">/</span><span class="n">ping</span>
+</pre></div>
+</div>
+<p>to ping the server.</p>
 </div>
 </div>
 <div class="section" id="configure-cross-origin-resource-sharing-cors">
@@ -426,7 +423,7 @@
 web application running at one origin (domain) have permission to access selected
 resources from a server at a different origin.</p>
 <p>CORS is disabled by default. Configure following properties in config.properties file to enable CORS:</p>
-<div class="highlight-properties notranslate"><div class="highlight"><pre><span></span><span class="c"># cors_allowed_origin is required to enable CORS, use &#39;*&#39; or your domain name</span>
+<div class="highlight-properties"><div class="highlight"><pre><span></span><span class="c"># cors_allowed_origin is required to enable CORS, use &#39;*&#39; or your domain name</span>
 <span class="na">cors_allowed_origin</span><span class="o">=</span><span class="s">https://yourdomain.com</span>
 <span class="c"># required if you want to use preflight request</span>
 <span class="na">cors_allowed_methods</span><span class="o">=</span><span class="s">GET, POST, PUT, OPTIONS</span>
@@ -437,33 +434,33 @@ resources from a server at a different origin.</p>
 </div>
 <div class="section" id="restrict-backend-worker-to-access-environment-variable">
 <h3>Restrict backend worker to access environment variable<a class="headerlink" href="#restrict-backend-worker-to-access-environment-variable" title="Permalink to this headline">¶</a></h3>
-<p>Environment variable may contains sensitive information like AWS credentials. Backend worker will execute arbitrary model’s custom code, which may expose security risk. TorchServe provides a <code class="docutils literal notranslate"><span class="pre">blacklist_env_vars</span></code> property which allows user to restrict which environment variable can be accessed by backend worker.</p>
+<p>Environment variable may contains sensitive information like AWS credentials. Backend worker will execute arbitrary model’s custom code, which may expose security risk. TorchServe provides a <code class="docutils literal"><span class="pre">blacklist_env_vars</span></code> property which allows user to restrict which environment variable can be accessed by backend worker.</p>
 <ul class="simple">
-<li><p>blacklist_env_vars: a regular expression to filter out environment variable names, default: all environment variable will be visible to backend worker.</p></li>
+<li>blacklist_env_vars: a regular expression to filter out environment variable names, default: all environment variable will be visible to backend worker.</li>
 </ul>
 </div>
 <div class="section" id="limit-gpu-usage">
 <h3>Limit GPU usage<a class="headerlink" href="#limit-gpu-usage" title="Permalink to this headline">¶</a></h3>
-<p>By default, TorchServe will use all available GPUs for inference, you use <code class="docutils literal notranslate"><span class="pre">number_of_gpu</span></code> to limit the usage of GPUs.</p>
+<p>By default, TorchServe will use all available GPUs for inference, you use <code class="docutils literal"><span class="pre">number_of_gpu</span></code> to limit the usage of GPUs.</p>
 <ul class="simple">
-<li><p>number_of_gpu: max number of GPUs that TorchServe can use for inference, default: available GPUs in system.</p></li>
+<li>number_of_gpu: max number of GPUs that TorchServe can use for inference, default: available GPUs in system.</li>
 </ul>
 </div>
 <div class="section" id="other-properties">
 <h3>Other properties<a class="headerlink" href="#other-properties" title="Permalink to this headline">¶</a></h3>
 <p>Most of those properties are designed for performance tuning. Adjusting those numbers will impact scalability and throughput.</p>
 <ul class="simple">
-<li><p>enable_envvars_config: Enable configuring TorchServe through environment variables. When this option is set to “true”, all the static configurations of TorchServe can come through environment variables as well. default: false</p></li>
-<li><p>number_of_netty_threads: number frontend netty thread, default: number of logical processors available to the JVM.</p></li>
-<li><p>netty_client_threads: number of backend netty thread, default: number of logical processors available to the JVM.</p></li>
-<li><p>default_workers_per_model: number of workers to create for each model that loaded at startup time, default: available GPUs in system or number of logical processors available to the JVM.</p></li>
-<li><p>job_queue_size: number inference jobs that frontend will queue before backend can serve, default 100.</p></li>
-<li><p>async_logging: enable asynchronous logging for higher throughput, log output may be delayed if this is enabled, default: false.</p></li>
-<li><p>default_response_timeout: Timeout, in seconds, used for model’s backend workers before they are deemed unresponsive and rebooted. default: 120 seconds.</p></li>
-<li><p>unregister_model_timeout: Timeout, in seconds, used when handling an unregister model request when cleaning a process before it is deemed unresponsive and an error response is sent. default: 120 seconds.</p></li>
-<li><p>decode_input_request: Configuration to let backend workers to decode requests, when the content type is known.
+<li>enable_envvars_config: Enable configuring TorchServe through environment variables. When this option is set to “true”, all the static configurations of TorchServe can come through environment variables as well. default: false</li>
+<li>number_of_netty_threads: number frontend netty thread, default: number of logical processors available to the JVM.</li>
+<li>netty_client_threads: number of backend netty thread, default: number of logical processors available to the JVM.</li>
+<li>default_workers_per_model: number of workers to create for each model that loaded at startup time, default: available GPUs in system or number of logical processors available to the JVM.</li>
+<li>job_queue_size: number inference jobs that frontend will queue before backend can serve, default 100.</li>
+<li>async_logging: enable asynchronous logging for higher throughput, log output may be delayed if this is enabled, default: false.</li>
+<li>default_response_timeout: Timeout, in seconds, used for model’s backend workers before they are deemed unresponsive and rebooted. default: 120 seconds.</li>
+<li>unregister_model_timeout: Timeout, in seconds, used when handling an unregister model request when cleaning a process before it is deemed unresponsive and an error response is sent. default: 120 seconds.</li>
+<li>decode_input_request: Configuration to let backend workers to decode requests, when the content type is known.
 If this is set to “true”, backend workers do “Bytearray to JSON object” conversion when the content type is “application/json” and
-the backend workers convert “Bytearray to utf-8 string” when the Content-Type of the request is set to “text*”. default: true</p></li>
+the backend workers convert “Bytearray to utf-8 string” when the Content-Type of the request is set to “text*”. default: true</li>
 </ul>
 </div>
 </div>
@@ -477,7 +474,7 @@ the backend workers convert “Bytearray to utf-8 string” when the Content-Typ
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="server.html" class="btn btn-neutral float-right" title="Running the TorchServe" accesskey="n" rel="next">Next <img src="_static/images/chevron-right-orange.svg" class="next-page"></a>
+        <a href="server.html" class="btn btn-neutral float-right" title="Running TorchServe" accesskey="n" rel="next">Next <img src="_static/images/chevron-right-orange.svg" class="next-page"></a>
       
       
         <a href="rest_api.html" class="btn btn-neutral" title="TorchServe REST API" accesskey="p" rel="prev"><img src="_static/images/chevron-right-orange.svg" class="previous-page"> Previous</a>
@@ -519,7 +516,7 @@ the backend workers convert “Bytearray to utf-8 string” when the Content-Typ
 <li><a class="reference internal" href="#customize-jvm-options">Customize JVM options</a></li>
 <li><a class="reference internal" href="#load-models-at-startup">Load models at startup</a></li>
 <li><a class="reference internal" href="#configure-torchserve-listening-address-and-port">Configure TorchServe listening address and port</a></li>
-<li><a class="reference internal" href="#id3">Enable SSL</a><ul>
+<li><a class="reference internal" href="#enable-ssl">Enable SSL</a><ul>
 <li><a class="reference internal" href="#examples">Examples</a></li>
 </ul>
 </li>
@@ -545,11 +542,20 @@ the backend workers convert “Bytearray to utf-8 string” when the Content-Typ
   
 
      
-       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+       <script type="text/javascript">
+           var DOCUMENTATION_OPTIONS = {
+               URL_ROOT:'./',
+               VERSION:'master',
+               LANGUAGE:'None',
+               COLLAPSE_INDEX:false,
+               FILE_SUFFIX:'.html',
+               HAS_SOURCE:  true,
+               SOURCELINK_SUFFIX: '.txt'
+           };
+       </script>
          <script type="text/javascript" src="_static/jquery.js"></script>
          <script type="text/javascript" src="_static/underscore.js"></script>
          <script type="text/javascript" src="_static/doctools.js"></script>
-         <script type="text/javascript" src="_static/language_data.js"></script>
          <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
          <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
          <script type="text/javascript" src="_static/katex_autorenderer.js"></script>
@@ -559,6 +565,7 @@ the backend workers convert “Bytearray to utf-8 string” when the Content-Typ
 
   <script type="text/javascript" src="_static/js/vendor/popper.min.js"></script>
   <script type="text/javascript" src="_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
   <script type="text/javascript" src="_static/js/theme.js"></script>
 
   <script type="text/javascript">
@@ -749,6 +756,10 @@ the backend workers convert “Bytearray to utf-8 string” when the Content-Typ
       scrollToAnchor.bind();
       highlightNavigation.bind();
       mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Remove any empty p tags that Sphinx adds
+      $("[data-tags='null']").remove();
 
       // Add class to links that have code blocks, since we cannot create links in code blocks
       $("article.pytorch-article a span.pre").each(function(e) {

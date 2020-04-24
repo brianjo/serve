@@ -199,7 +199,7 @@
 </ul>
 <p class="caption"><span class="caption-text">TorchServe Usage</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="server.html">Running the TorchServe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">Running TorchServe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="batch_inference_with_ts.html">Batch Inference with TorchServe</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Custom Service</a></li>
 </ul>
@@ -248,7 +248,7 @@
       <li class="pytorch-breadcrumbs-aside">
         
             
-            <a href="_sources/custom_service.rst.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
+            <a href="_sources/custom_service.md.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
           
         
       </li>
@@ -279,28 +279,28 @@
 <div class="section" id="contents-of-this-document">
 <h2>Contents of this Document<a class="headerlink" href="#contents-of-this-document" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="#introduction">Introduction</a></p></li>
-<li><p><a class="reference external" href="#requirements-for-custom-service-file">Requirements for custom service file</a></p></li>
-<li><p><a class="reference external" href="#example-custom-service-file">Example Custom Service file</a></p></li>
-<li><p><a class="reference external" href="#creating-model-archive-with-entry-point">Creating model archive with entry point</a></p></li>
-<li><p><a class="reference external" href="#handling-model-execution-on-multiple-gpus">Handling model execution on GPU</a></p></li>
+<li><a class="reference external" href="#introduction">Introduction</a></li>
+<li><a class="reference external" href="#requirements-for-custom-service-file">Requirements for custom service file</a></li>
+<li><a class="reference external" href="#example-custom-service-file">Example Custom Service file</a></li>
+<li><a class="reference external" href="#creating-model-archive-with-entry-point">Creating model archive with entry point</a></li>
+<li><a class="reference external" href="#handling-model-execution-on-multiple-gpus">Handling model execution on GPU</a></li>
 </ul>
 </div>
-<div class="section" id="id1">
-<h2>Introduction<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>A custom service , is the code that is packaged into model archive, that is executed by Model Server for PyTorch (TorchServe).
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>A custom service is the code that is packaged into model archive to be executed by Model Server for PyTorch (TorchServe).
 The custom service is responsible for handling incoming data and passing on to engine for inference. The output of the custom service is returned back as response by TorchServe.</p>
 </div>
-<div class="section" id="id2">
-<h2>Requirements for custom service file<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>The custom service file should define a method that acts as an entry point for execution, this function will be invoked by TorchServe on a inference request.
-The function can have any name, not necessarily handle, however this function should accept, the following parameters</p>
+<div class="section" id="requirements-for-custom-service-file">
+<h2>Requirements for custom service file<a class="headerlink" href="#requirements-for-custom-service-file" title="Permalink to this headline">¶</a></h2>
+<p>The custom service file should define a method that acts as an entry point for execution, this function will be invoked by TorchServe on an inference request.</p>
+<p>The function can have any name, not necessarily handle, however this function should accept, the following parameters</p>
 <ul class="simple">
-<li><p><strong>data</strong> - The input data from the incoming request</p></li>
-<li><p><strong>context</strong> - Is the TorchServe <a class="reference external" href="https://github.com/pytorch/serve/blob/master/ts/context.py">context</a> information passed for use with the custom service if required.</p></li>
+<li><strong>data</strong> - The input data from the incoming request</li>
+<li><strong>context</strong> - Is the TorchServe <a class="reference external" href="../ts/context.py">context</a> information passed for use with the custom service if required.</li>
 </ul>
 <p>The signature of a entry point function is:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">function_name</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">context</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">function_name</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">context</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Works on data and context passed</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -309,9 +309,9 @@ The function can have any name, not necessarily handle, however this function sh
 </div>
 <p>The next section, showcases an example custom service.</p>
 </div>
-<div class="section" id="id3">
-<h2>Example Custom Service file<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># custom service file</span>
+<div class="section" id="example-custom-service-file">
+<h2>Example Custom Service file<a class="headerlink" href="#example-custom-service-file" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># custom service file</span>
 
 <span class="c1"># model_handler.py</span>
 
@@ -388,19 +388,17 @@ The function can have any name, not necessarily handle, however this function sh
     <span class="k">return</span> <span class="n">_service</span><span class="o">.</span><span class="n">handle</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Here the <code class="docutils literal notranslate"><span class="pre">handle()</span></code> method is our entry point that will be invoked by TorchServe, with the parameters data and context, it in turn can pass this information to an actual inference class object or handle all the processing in the
-<code class="docutils literal notranslate"><span class="pre">handle()</span></code> method itself. The <code class="docutils literal notranslate"><span class="pre">initialize()</span></code> method is used to initialize the model at load time, so after first time, the service need not be re-initialized in the the life cycle of the relevant worker.</p>
-<blockquote>
-<div><p>We recommend using a <code class="docutils literal notranslate"><span class="pre">initialize()</span></code> method, avoid initialization at prediction time.</p>
-<p>This entry point is engaged in two cases: (1) when TorchServe is asked to scale a model up, to increase the number of backend workers (it is done either via a <code class="docutils literal notranslate"><span class="pre">PUT</span> <span class="pre">/models/{model_name}</span></code> request or a <code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/models</span></code> request with <code class="docutils literal notranslate"><span class="pre">initial-workers</span></code> option or during TorchServe startup when you use <code class="docutils literal notranslate"><span class="pre">--models</span></code> option (<code class="docutils literal notranslate"><span class="pre">torchserve</span> <span class="pre">--start</span> <span class="pre">--models</span> <span class="pre">{model_name=model.mar}</span></code>), ie., you provide model(s) to load) or (2) when TorchServe gets a <code class="docutils literal notranslate"><span class="pre">POST</span> <span class="pre">/predictions/{model_name}</span></code> request. (1) is used to scale-up or scale-down workers for a model. (2) is used as a standard way to run inference against a model. (1) is also known as model load time, and that is where you would normally want to put code for model initialization. You can find out more about these and other TorchServe APIs in <a class="reference external" href="./management_api.md">TorchServe Management API</a> and <a class="reference external" href="./inference_api.md">TorchServe Inference API</a></p>
-</div></blockquote>
+<p>Here the <code class="docutils literal"> <span class="pre">handle()</span></code> method is our entry point that will be invoked by TorchServe, with the parameters data and context, it in turn can pass this information to an actual inference class object or handle all the processing in the
+<code class="docutils literal"><span class="pre">handle()</span></code> method itself. The <code class="docutils literal"><span class="pre">initialize()</span></code> method is used to initialize the model at load time, so after first time, the service need not be re-initialized in the the life cycle of the relevant worker.
+We recommend using a <code class="docutils literal"><span class="pre">initialize()</span></code> method, avoid initialization at prediction time.</p>
+<p>This entry point is engaged in two cases: (1) when TorchServe is asked to scale a model up, to increase the number of backend workers (it is done either via a <code class="docutils literal"><span class="pre">PUT</span> <span class="pre">/models/{model_name}</span></code> request or a <code class="docutils literal"><span class="pre">POST</span> <span class="pre">/models</span></code> request with <code class="docutils literal"><span class="pre">initial-workers</span></code> option or during TorchServe startup when you use <code class="docutils literal"><span class="pre">--models</span></code> option (<code class="docutils literal"><span class="pre">torchserve</span> <span class="pre">--start</span> <span class="pre">--model-store</span> <span class="pre">{model-store-path}</span> <span class="pre">--models</span> <span class="pre">{model_name=model.mar}</span></code>), ie., you provide model(s) to load) or (2) when TorchServe gets a <code class="docutils literal"><span class="pre">POST</span> <span class="pre">/predictions/{model_name}</span></code> request. (1) is used to scale-up or scale-down workers for a model. (2) is used as a standard way to run inference against a model. (1) is also known as model load time, and that is where you would normally want to put code for model initialization. You can find out more about these and other TorchServe APIs in <a class="reference internal" href="management_api.html"><span class="doc">TorchServe Management API</span></a> and <a class="reference internal" href="inference_api.html"><span class="doc">TorchServe Inference API</span></a></p>
 <p>** For a working example of a custom service handler refer <a class="reference external" href="../examples/image_classifier/mnist/mnist_handler.py">mnist digit classifier handler</a> **</p>
 </div>
 <div class="section" id="handling-model-execution-on-multiple-gpus">
 <h2>Handling model execution on multiple GPUs<a class="headerlink" href="#handling-model-execution-on-multiple-gpus" title="Permalink to this headline">¶</a></h2>
 <p>TorchServe scales backend workers on vCPUs or GPUs. In case of multiple GPUs TorchServe selects the gpu device in round-robin fashion and passes on this device id to the model handler in context object. User should use this GPU ID for creating pytorch device object to ensure that all the workers are not created in the same GPU.</p>
 <p>Following generic code snippet can be used in model handler to create the pytorch device object:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ModelHandler</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ModelHandler</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A base Model handler implementation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -415,15 +413,15 @@ The function can have any name, not necessarily handle, however this function sh
 </div>
 <p>** For more details refer <a class="reference external" href="../examples/image_classifier/mnist/mnist_handler.py">mnist digit classifier handler</a> **</p>
 </div>
-<div class="section" id="id5">
-<h2>Creating model archive with entry point<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
-<p>TorchServe, identifies the entry point to the custom service, from the manifest file. Thus file creating the model archive, one needs to mention the entry point using the <code class="docutils literal notranslate"><span class="pre">--handler</span></code> option.</p>
-<p>The <a class="reference external" href="https://github.com/pytorch/serve/blob/master/model-archiver/README.md">model-archiver</a> tool enables the create to an archive understood by TorchServe.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>torch-model-archiver --model-name &lt;model-name&gt; --version &lt;model_version_number&gt; --model-file &lt;path_to_model_architecture_file&gt; --serialized-file &lt;path_to_state_dict_file&gt; --extra-files &lt;path_to_index_to_name_json_file&gt; --handler model_handler:handle --export-path &lt;output-dir&gt; --model-path &lt;model_dir&gt; --runtime python3
+<div class="section" id="creating-model-archive-with-entry-point">
+<h2>Creating model archive with entry point<a class="headerlink" href="#creating-model-archive-with-entry-point" title="Permalink to this headline">¶</a></h2>
+<p>TorchServe, identifies the entry point to the custom service, from the manifest file. Thus file creating the model archive, one needs to mention the entry point using the <code class="docutils literal"><span class="pre">--handler</span></code> option.</p>
+<p>The <a class="reference external" href="../model-archiver/README">model-archiver</a> tool enables the create to an archive understood by TorchServe.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>torch-model-archiver --model-name &lt;model-name&gt; --version &lt;model_version_number&gt; --model-file &lt;path_to_model_architecture_file&gt; --serialized-file &lt;path_to_state_dict_file&gt; --extra-files &lt;path_to_index_to_name_json_file&gt; --handler model_handler:handle --export-path &lt;output-dir&gt; --model-path &lt;model_dir&gt; --runtime python3
 </pre></div>
 </div>
-<p>This will create file <code class="docutils literal notranslate"><span class="pre">&lt;model-name&gt;.mar</span></code> in the directory <code class="docutils literal notranslate"><span class="pre">&lt;output-dir&gt;</span></code></p>
-<p>This will create a model archive with the custom handler, for python3 runtime. The <code class="docutils literal notranslate"><span class="pre">--runtime</span></code> parameter enables usage of specific python version at runtime, by default it uses the default python distribution of the system.</p>
+<p>This will create file <code class="docutils literal"><span class="pre">&lt;model-name&gt;.mar</span></code> in the directory <code class="docutils literal"><span class="pre">&lt;output-dir&gt;</span></code></p>
+<p>This will create a model archive with the custom handler, for python3 runtime. The <code class="docutils literal"><span class="pre">--runtime</span></code> parameter enables usage of specific python version at runtime, by default it uses the default python distribution of the system.</p>
 </div>
 </div>
 
@@ -470,11 +468,11 @@ The function can have any name, not necessarily handle, however this function sh
               <ul>
 <li><a class="reference internal" href="#">Custom Service</a><ul>
 <li><a class="reference internal" href="#contents-of-this-document">Contents of this Document</a></li>
-<li><a class="reference internal" href="#id1">Introduction</a></li>
-<li><a class="reference internal" href="#id2">Requirements for custom service file</a></li>
-<li><a class="reference internal" href="#id3">Example Custom Service file</a></li>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#requirements-for-custom-service-file">Requirements for custom service file</a></li>
+<li><a class="reference internal" href="#example-custom-service-file">Example Custom Service file</a></li>
 <li><a class="reference internal" href="#handling-model-execution-on-multiple-gpus">Handling model execution on multiple GPUs</a></li>
-<li><a class="reference internal" href="#id5">Creating model archive with entry point</a></li>
+<li><a class="reference internal" href="#creating-model-archive-with-entry-point">Creating model archive with entry point</a></li>
 </ul>
 </li>
 </ul>
@@ -491,11 +489,20 @@ The function can have any name, not necessarily handle, however this function sh
   
 
      
-       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+       <script type="text/javascript">
+           var DOCUMENTATION_OPTIONS = {
+               URL_ROOT:'./',
+               VERSION:'master',
+               LANGUAGE:'None',
+               COLLAPSE_INDEX:false,
+               FILE_SUFFIX:'.html',
+               HAS_SOURCE:  true,
+               SOURCELINK_SUFFIX: '.txt'
+           };
+       </script>
          <script type="text/javascript" src="_static/jquery.js"></script>
          <script type="text/javascript" src="_static/underscore.js"></script>
          <script type="text/javascript" src="_static/doctools.js"></script>
-         <script type="text/javascript" src="_static/language_data.js"></script>
          <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
          <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
          <script type="text/javascript" src="_static/katex_autorenderer.js"></script>
@@ -505,6 +512,7 @@ The function can have any name, not necessarily handle, however this function sh
 
   <script type="text/javascript" src="_static/js/vendor/popper.min.js"></script>
   <script type="text/javascript" src="_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
   <script type="text/javascript" src="_static/js/theme.js"></script>
 
   <script type="text/javascript">
@@ -695,6 +703,10 @@ The function can have any name, not necessarily handle, however this function sh
       scrollToAnchor.bind();
       highlightNavigation.bind();
       mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Remove any empty p tags that Sphinx adds
+      $("[data-tags='null']").remove();
 
       // Add class to links that have code blocks, since we cannot create links in code blocks
       $("article.pytorch-article a span.pre").each(function(e) {

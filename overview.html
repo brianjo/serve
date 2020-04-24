@@ -198,7 +198,7 @@
 </ul>
 <p class="caption"><span class="caption-text">TorchServe Usage</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="server.html">Running the TorchServe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="server.html">Running TorchServe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="batch_inference_with_ts.html">Batch Inference with TorchServe</a></li>
 <li class="toctree-l1"><a class="reference internal" href="custom_service.html">Custom Service</a></li>
 </ul>
@@ -283,10 +283,10 @@ provided below. Detailed documentation and examples are provided in the
 <div class="section" id="contents-of-this-document">
 <h2>Contents of this Document<a class="headerlink" href="#contents-of-this-document" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="#quick-start">Quick Start</a></p></li>
-<li><p><a class="reference external" href="#serve-a-model">Serve a Model</a></p></li>
-<li><p><a class="reference external" href="#other-features">Other Features</a></p></li>
-<li><p><a class="reference external" href="#contributing">Contributing</a></p></li>
+<li><a class="reference external" href="#quick-start">Quick Start</a></li>
+<li><a class="reference external" href="#serve-a-model">Serve a Model</a></li>
+<li><a class="reference external" href="#other-features">Other Features</a></li>
+<li><a class="reference external" href="#contributing">Contributing</a></li>
 </ul>
 </div>
 <div class="section" id="quick-start">
@@ -300,7 +300,7 @@ only. 1. Python - TorchServe requires python to run the workers. 1. pip
 - Pip is a python package management system. 1. Java 11 - TorchServe
 requires Java 11 to start. You have the following options for installing
 Java 11:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>For Ubuntu:
+<div class="highlight-default"><div class="highlight"><pre><span></span>For Ubuntu:
 ```bash
 sudo apt-get install openjdk-11-jdk
 ```
@@ -329,69 +329,69 @@ It’s a good practice to run and install all of the Python dependencies
 in virtual environments. This will provide isolation of the dependencies
 and ease dependency management.</p>
 <ul class="simple">
-<li><p><strong>Use Virtualenv</strong> : This is used to create virtual Python
+<li><strong>Use Virtualenv</strong> : This is used to create virtual Python
 environments. You may install and activate a virtualenv for Python
-3.7 as follows:</p></li>
+3.7 as follows:</li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install virtualenv
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">virtualenv</span>
 </pre></div>
 </div>
 <p>Then create a virtual environment:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Assuming we want to run python3.7 in /usr/local/bin/python3.7</span>
-virtualenv -p /usr/local/bin/python3.7 /tmp/pyenv3
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Assuming we want to run python3.7 in /usr/local/bin/python3.7</span>
+<span class="n">virtualenv</span> <span class="o">-</span><span class="n">p</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python3</span><span class="o">.</span><span class="mi">7</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">pyenv3</span>
 <span class="c1"># Enter this virtual environment as follows</span>
-<span class="nb">source</span> /tmp/pyenv3/bin/activate
+<span class="n">source</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">pyenv3</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
 </pre></div>
 </div>
 <p>Refer to the <a class="reference external" href="https://virtualenv.pypa.io/en/stable/">Virtualenv
 documentation</a> for further
 information.</p>
 <ul class="simple">
-<li><p><strong>Use Anaconda</strong> : This is package, dependency and environment
+<li><strong>Use Anaconda</strong> : This is package, dependency and environment
 manager. You may download and install Anaconda as follows : <a class="reference external" href="https://www.anaconda.com/distribution/#download-section">Download
 anaconda
-distribution</a></p></li>
+distribution</a></li>
 </ul>
 <p>Then create a virtual environment using conda.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n myenv
-<span class="nb">source</span> activate myenv
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">myenv</span>
+<span class="n">source</span> <span class="n">activate</span> <span class="n">myenv</span>
 </pre></div>
 </div>
 <p><strong>Step 2:</strong> Install torch TorchServe won’t install the PyTorch engine by
 default. If it isn’t already installed in your virtual environment, you
 must install the PyTorch pip packages.</p>
 <ul class="simple">
-<li><p>For virtualenv</p></li>
+<li>For virtualenv</li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#For CPU/GPU</span>
-pip install torch torchvision torchtext
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="c1">#For CPU/GPU</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">torch</span> <span class="n">torchvision</span> <span class="n">torchtext</span>
 </pre></div>
 </div>
 <ul class="simple">
-<li><p>For conda</p></li>
+<li>For conda</li>
 </ul>
-<p>The <code class="docutils literal notranslate"><span class="pre">torchtext</span></code> package has a dependency on <code class="docutils literal notranslate"><span class="pre">sentencepiece</span></code>, which
-is not available via Anaconda. You can install it via <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sentencepiece</span>
+<p>The <code class="docutils literal"><span class="pre">torchtext</span></code> package has a dependency on <code class="docutils literal"><span class="pre">sentencepiece</span></code>, which
+is not available via Anaconda. You can install it via <code class="docutils literal"><span class="pre">pip</span></code>:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">sentencepiece</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#For CPU</span>
-conda install psutil pytorch torchvision torchtext -c pytorch
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="c1">#For CPU</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="n">psutil</span> <span class="n">pytorch</span> <span class="n">torchvision</span> <span class="n">torchtext</span> <span class="o">-</span><span class="n">c</span> <span class="n">pytorch</span>
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">#For GPU</span>
-conda install future psutil pytorch torchvision <span class="nv">cudatoolkit</span><span class="o">=</span><span class="m">10</span>.1 torchtext -c pytorch
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="c1">#For GPU</span>
+<span class="n">conda</span> <span class="n">install</span> <span class="n">future</span> <span class="n">psutil</span> <span class="n">pytorch</span> <span class="n">torchvision</span> <span class="n">cudatoolkit</span><span class="o">=</span><span class="mf">10.1</span> <span class="n">torchtext</span> <span class="o">-</span><span class="n">c</span> <span class="n">pytorch</span>
 </pre></div>
 </div>
 <p><strong>Step 3:</strong> Install TorchServe as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/pytorch/serve.git
-<span class="nb">cd</span> serve
-pip install .
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">pytorch</span><span class="o">/</span><span class="n">serve</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">serve</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
 </pre></div>
 </div>
-<p><strong>Notes:</strong> * In case <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.</span></code> step fails, try using
-<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code> and install the following python packages
-using <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> : Pillow, psutil, future * See the <a class="reference external" href="docs/install.md">advanced
+<p><strong>Notes:</strong> * In case <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">.</span></code> step fails, try using
+<code class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code> and install the following python packages
+using <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span></code> : Pillow, psutil, future * See the <a class="reference external" href="docs/install.md">advanced
 installation</a> page for more options and
 troubleshooting.</p>
 </div>
@@ -399,8 +399,8 @@ troubleshooting.</p>
 <div class="section" id="installing-torch-model-archiver">
 <h3>Installing torch-model-archiver<a class="headerlink" href="#installing-torch-model-archiver" title="Permalink to this headline">¶</a></h3>
 <p>*Install torch-model-archiver as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> serve/model-archiver
-pip install .
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">serve</span><span class="o">/</span><span class="n">model</span><span class="o">-</span><span class="n">archiver</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
 </pre></div>
 </div>
 <p><strong>Note</strong> * Once torch-model-arvchiver is available in Python Package
@@ -409,19 +409,19 @@ installation. * See the <a class="reference external" href="model-archiver/READM
 documentation</a> page for more options and
 troubleshooting. ### Serve a Model</p>
 <p>Once installed, you can get TorchServe model server up and running very
-quickly. Try out <code class="docutils literal notranslate"><span class="pre">--help</span></code> to see all the CLI options available.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>torchserve --help
+quickly. Try out <code class="docutils literal"><span class="pre">--help</span></code> to see all the CLI options available.</p>
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="n">torchserve</span> <span class="o">--</span><span class="n">help</span>
 </pre></div>
 </div>
 <p>For this quick start, we’ll skip over most of the features, but be sure
 to take a look at the <a class="reference external" href="docs/server.md">full server docs</a> when you’re
 ready.</p>
 <p>Here is an easy example for serving an object classification model:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://download.pytorch.org/models/densenet161-8d451a50.pth
-torch-model-archiver --model-name densenet161 --version <span class="m">1</span>.0 --model-file examples/image_classifier/densenet_161/model.py --serialized-file densenet161-8d451a50.pth --extra-files examples/image_classifier/index_to_name.json --handler image_classifier
-mkdir model_store
-mv densenet161.mar model_store/
-torchserve --start --model-store model_store --models <span class="nv">densenet161</span><span class="o">=</span>densenet161.mar
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">pytorch</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">models</span><span class="o">/</span><span class="n">densenet161</span><span class="o">-</span><span class="mi">8</span><span class="n">d451a50</span><span class="o">.</span><span class="n">pth</span>
+<span class="n">torch</span><span class="o">-</span><span class="n">model</span><span class="o">-</span><span class="n">archiver</span> <span class="o">--</span><span class="n">model</span><span class="o">-</span><span class="n">name</span> <span class="n">densenet161</span> <span class="o">--</span><span class="n">version</span> <span class="mf">1.0</span> <span class="o">--</span><span class="n">model</span><span class="o">-</span><span class="n">file</span> <span class="n">examples</span><span class="o">/</span><span class="n">image_classifier</span><span class="o">/</span><span class="n">densenet_161</span><span class="o">/</span><span class="n">model</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">serialized</span><span class="o">-</span><span class="n">file</span> <span class="n">densenet161</span><span class="o">-</span><span class="mi">8</span><span class="n">d451a50</span><span class="o">.</span><span class="n">pth</span> <span class="o">--</span><span class="n">extra</span><span class="o">-</span><span class="n">files</span> <span class="n">examples</span><span class="o">/</span><span class="n">image_classifier</span><span class="o">/</span><span class="n">index_to_name</span><span class="o">.</span><span class="n">json</span> <span class="o">--</span><span class="n">handler</span> <span class="n">image_classifier</span>
+<span class="n">mkdir</span> <span class="n">model_store</span>
+<span class="n">mv</span> <span class="n">densenet161</span><span class="o">.</span><span class="n">mar</span> <span class="n">model_store</span><span class="o">/</span>
+<span class="n">torchserve</span> <span class="o">--</span><span class="n">start</span> <span class="o">--</span><span class="n">model</span><span class="o">-</span><span class="n">store</span> <span class="n">model_store</span> <span class="o">--</span><span class="n">models</span> <span class="n">densenet161</span><span class="o">=</span><span class="n">densenet161</span><span class="o">.</span><span class="n">mar</span>
 </pre></div>
 </div>
 <p>With the command above executed, you have TorchServe running on your
@@ -438,43 +438,43 @@ up time and move that to a later point by using corresponding
 allows finer grain control to how much resources are allocated for any
 particular model).</strong></p>
 <p>To test it out, you can open a new terminal window next to the one
-running TorchServe. Then you can use <code class="docutils literal notranslate"><span class="pre">curl</span></code> to download one of these
+running TorchServe. Then you can use <code class="docutils literal"><span class="pre">curl</span></code> to download one of these
 <a class="reference external" href="https://www.google.com/search?q=cute+kitten&amp;tbm=isch&amp;hl=en&amp;cr=&amp;safe=images">cute pictures of a
 kitten</a>
-and curl’s <code class="docutils literal notranslate"><span class="pre">-o</span></code> flag will name it <code class="docutils literal notranslate"><span class="pre">kitten.jpg</span></code> for you. Then you
-will <code class="docutils literal notranslate"><span class="pre">curl</span></code> a <code class="docutils literal notranslate"><span class="pre">POST</span></code> to the TorchServe predict endpoint with the
+and curl’s <code class="docutils literal"><span class="pre">-o</span></code> flag will name it <code class="docutils literal"><span class="pre">kitten.jpg</span></code> for you. Then you
+will <code class="docutils literal"><span class="pre">curl</span></code> a <code class="docutils literal"><span class="pre">POST</span></code> to the TorchServe predict endpoint with the
 kitten’s image.</p>
-<div class="figure align-default" id="id1">
+<div class="figure" id="id1">
 <img alt="kitten" src="docs/images/kitten_small.jpg" />
-<p class="caption"><span class="caption-text">kitten</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+<p class="caption"><span class="caption-text">kitten</span></p>
 </div>
 <p>In the example below, we provide a shortcut for these steps.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl -O https://s3.amazonaws.com/model-server/inputs/kitten.jpg
-curl -X POST http://127.0.0.1:8080/predictions/densenet161 -T kitten.jpg
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">O</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">s3</span><span class="o">.</span><span class="n">amazonaws</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">model</span><span class="o">-</span><span class="n">server</span><span class="o">/</span><span class="n">inputs</span><span class="o">/</span><span class="n">kitten</span><span class="o">.</span><span class="n">jpg</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">X</span> <span class="n">POST</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="mf">127.0</span><span class="o">.</span><span class="mf">0.1</span><span class="p">:</span><span class="mi">8080</span><span class="o">/</span><span class="n">predictions</span><span class="o">/</span><span class="n">densenet161</span> <span class="o">-</span><span class="n">T</span> <span class="n">kitten</span><span class="o">.</span><span class="n">jpg</span>
 </pre></div>
 </div>
 <p>The predict endpoint will return a prediction response in JSON. It will
 look something like the following result:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+<div class="code json highlight-default"><div class="highlight"><pre><span></span><span class="p">[</span>
   <span class="p">{</span>
-    <span class="nt">&quot;tiger_cat&quot;</span><span class="p">:</span> <span class="mf">0.46933549642562866</span>
+    <span class="s2">&quot;tiger_cat&quot;</span><span class="p">:</span> <span class="mf">0.46933549642562866</span>
   <span class="p">},</span>
   <span class="p">{</span>
-    <span class="nt">&quot;tabby&quot;</span><span class="p">:</span> <span class="mf">0.4633878469467163</span>
+    <span class="s2">&quot;tabby&quot;</span><span class="p">:</span> <span class="mf">0.4633878469467163</span>
   <span class="p">},</span>
   <span class="p">{</span>
-    <span class="nt">&quot;Egyptian_cat&quot;</span><span class="p">:</span> <span class="mf">0.06456148624420166</span>
+    <span class="s2">&quot;Egyptian_cat&quot;</span><span class="p">:</span> <span class="mf">0.06456148624420166</span>
   <span class="p">},</span>
   <span class="p">{</span>
-    <span class="nt">&quot;lynx&quot;</span><span class="p">:</span> <span class="mf">0.0012828214094042778</span>
+    <span class="s2">&quot;lynx&quot;</span><span class="p">:</span> <span class="mf">0.0012828214094042778</span>
   <span class="p">},</span>
   <span class="p">{</span>
-    <span class="nt">&quot;plastic_bag&quot;</span><span class="p">:</span> <span class="mf">0.00023323034110944718</span>
+    <span class="s2">&quot;plastic_bag&quot;</span><span class="p">:</span> <span class="mf">0.00023323034110944718</span>
   <span class="p">}</span>
 <span class="p">]</span>
 </pre></div>
 </div>
-<p>You will see this result in the response to your <code class="docutils literal notranslate"><span class="pre">curl</span></code> call to the
+<p>You will see this result in the response to your <code class="docutils literal"><span class="pre">curl</span></code> call to the
 predict endpoint, and in the server logs in the terminal window running
 TorchServe. It’s also being <a class="reference external" href="docs/metrics.md">logged locally with
 metrics</a>.</p>
@@ -485,7 +485,7 @@ TorchServe! <a class="reference external" href="docs/server.md">Would you like t
 <h3>Stopping the running TorchServe<a class="headerlink" href="#stopping-the-running-torchserve" title="Permalink to this headline">¶</a></h3>
 <p>To stop the current running TorchServe instance, run the following
 command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ torchserve --stop
+<div class="code bash highlight-default"><div class="highlight"><pre><span></span>$ torchserve --stop
 </pre></div>
 </div>
 <p>You would see output specifying that TorchServe has stopped.</p>
@@ -501,18 +501,18 @@ documentation</a></p>
 <div class="section" id="recommended-production-deployments">
 <h2>Recommended production deployments<a class="headerlink" href="#recommended-production-deployments" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>TorchServe doesn’t provide authentication. You have to have your own
-authentication proxy in front of TorchServe.</p></li>
-<li><p>TorchServe doesn’t provide throttling, it’s vulnerable to DDoS
-attack. It’s recommended to running TorchServe behind a firewall.</p></li>
-<li><p>TorchServe only allows localhost access by default, see <a class="reference external" href="docs/configuration.md#configure-ts-listening-port">Network
+<li>TorchServe doesn’t provide authentication. You have to have your own
+authentication proxy in front of TorchServe.</li>
+<li>TorchServe doesn’t provide throttling, it’s vulnerable to DDoS
+attack. It’s recommended to running TorchServe behind a firewall.</li>
+<li>TorchServe only allows localhost access by default, see <a class="reference external" href="docs/configuration.md#configure-ts-listening-port">Network
 configuration</a>
-for detail.</p></li>
-<li><p>SSL is not enabled by default, see <a class="reference external" href="docs/configuration.md#enable-ssl">Enable
-SSL</a> for detail.</p></li>
-<li><p>TorchServe use a config.properties file to configure TorchServe’s
+for detail.</li>
+<li>SSL is not enabled by default, see <a class="reference external" href="docs/configuration.md#enable-ssl">Enable
+SSL</a> for detail.</li>
+<li>TorchServe use a config.properties file to configure TorchServe’s
 behavior, see <a class="reference external" href="docs/configuration.md">Manage TorchServe</a> page for
-detail of how to configure TorchServe.</p></li>
+detail of how to configure TorchServe.</li>
 </ul>
 </div>
 <div class="section" id="other-features">
@@ -533,28 +533,26 @@ requests are welcome.</p>
 <div class="section" id="v0-1-plan">
 <h3>v0.1 Plan<a class="headerlink" href="#v0-1-plan" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>[ ] CI (initially AWS CodeBuild)</p></li>
-<li><p>[x] Default handler</p>
-<ul>
-<li><p>[x] Handle eager-mode and TorchScript (tracing and scripting)</p></li>
-<li><p>[x] Add zero-code pre and post-processing for Image Classification</p></li>
+<li>[ ] CI (initially AWS CodeBuild)</li>
+<li>[x] Default handler<ul>
+<li>[x] Handle eager-mode and TorchScript (tracing and scripting)</li>
+<li>[x] Add zero-code pre and post-processing for Image Classification</li>
 </ul>
 </li>
-<li><p>[x] Basic examples</p>
-<ul>
-<li><p>[x] Eager-mode image classifier</p></li>
-<li><p>[x] TorchScript image classifier</p></li>
-<li><p>[x] Custom neural network</p></li>
+<li>[x] Basic examples<ul>
+<li>[x] Eager-mode image classifier</li>
+<li>[x] TorchScript image classifier</li>
+<li>[x] Custom neural network</li>
 </ul>
 </li>
-<li><p>[x] Basic docs (install, serve a model and use it for inference)</p></li>
+<li>[x] Basic docs (install, serve a model and use it for inference)</li>
 </ul>
 </div>
 <div class="section" id="v0-2-plan">
 <h3>v0.2 Plan<a class="headerlink" href="#v0-2-plan" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>[ ] Basic unit tests</p></li>
-<li><p>[ ] Versioning</p></li>
+<li>[ ] Basic unit tests</li>
+<li>[ ] Versioning</li>
 </ul>
 </div>
 </div>
@@ -631,11 +629,20 @@ requests are welcome.</p>
   
 
      
-       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+       <script type="text/javascript">
+           var DOCUMENTATION_OPTIONS = {
+               URL_ROOT:'./',
+               VERSION:'master',
+               LANGUAGE:'None',
+               COLLAPSE_INDEX:false,
+               FILE_SUFFIX:'.html',
+               HAS_SOURCE:  true,
+               SOURCELINK_SUFFIX: '.txt'
+           };
+       </script>
          <script type="text/javascript" src="_static/jquery.js"></script>
          <script type="text/javascript" src="_static/underscore.js"></script>
          <script type="text/javascript" src="_static/doctools.js"></script>
-         <script type="text/javascript" src="_static/language_data.js"></script>
          <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"></script>
          <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"></script>
          <script type="text/javascript" src="_static/katex_autorenderer.js"></script>
@@ -645,6 +652,7 @@ requests are welcome.</p>
 
   <script type="text/javascript" src="_static/js/vendor/popper.min.js"></script>
   <script type="text/javascript" src="_static/js/vendor/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
   <script type="text/javascript" src="_static/js/theme.js"></script>
 
   <script type="text/javascript">
@@ -835,6 +843,10 @@ requests are welcome.</p>
       scrollToAnchor.bind();
       highlightNavigation.bind();
       mainMenuDropdown.bind();
+      filterTags.bind();
+
+      // Remove any empty p tags that Sphinx adds
+      $("[data-tags='null']").remove();
 
       // Add class to links that have code blocks, since we cannot create links in code blocks
       $("article.pytorch-article a span.pre").each(function(e) {

@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>TorchServe &mdash; PyTorch/Serve master documentation</title>
+  <title>TorchServe model snapshot &mdash; PyTorch/Serve master documentation</title>
   
 
   
@@ -31,8 +31,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" type="text/css" />
   <link rel="stylesheet" href="_static/katex-math.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Inference API" href="inference_api.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -234,7 +233,7 @@
   <ul class="pytorch-breadcrumbs">
     
       <li>
-        <a href="#">
+        <a href="index.html">
           
             Docs
           
@@ -242,13 +241,13 @@
       </li>
 
         
-      <li>TorchServe</li>
+      <li>TorchServe model snapshot</li>
     
     
       <li class="pytorch-breadcrumbs-aside">
         
             
-            <a href="_sources/index.rst.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
+            <a href="_sources/snapshot.md.txt" rel="nofollow"><img src="_static/images/view-page-source-icon.svg"></a>
           
         
       </li>
@@ -274,39 +273,31 @@
             <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
              <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
               
-  <div class="section" id="torchserve">
-<h1>TorchServe<a class="headerlink" href="#torchserve" title="Permalink to this headline">¶</a></h1>
-<p>TorchServe is a flexible and easy to use tool for serving PyTorch models.</p>
-<p>A quick overview and examples for both serving and packaging are provided below. Detailed documentation and examples are provided in the <a class="reference external" href="https://github.com/pytorch/serve/blob/master/docs/README.md">docs folder</a>.</p>
-<div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">TorchServe is experimental and subject to change.</p>
-</div>
-<p><a class="reference internal" href="install.html#install"><span class="std std-ref">Install TorchServe</span></a></p>
-<div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Core APIs</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="inference_api.html">Inference API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="default_handlers.html">TorchServe default inference handlers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging on Torchserve</a></li>
-<li class="toctree-l1"><a class="reference internal" href="logging.html#pre-requisites">Pre-requisites</a></li>
-<li class="toctree-l1"><a class="reference internal" href="logging.html#types-of-logs">Types of logs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="logging.html#modifying-the-behavior-of-the-logs">Modifying the behavior of the logs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="logging.html#enable-asynchronous-logging">Enable asynchronous logging</a></li>
-<li class="toctree-l1"><a class="reference internal" href="management_api.html">Management API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics on TorchServe</a></li>
-<li class="toctree-l1"><a class="reference internal" href="rest_api.html">TorchServe REST API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Advanced configuration</a></li>
+  <div class="section" id="torchserve-model-snapshot">
+<h1>TorchServe model snapshot<a class="headerlink" href="#torchserve-model-snapshot" title="Permalink to this headline">¶</a></h1>
+<p>TorchServe preserves server runtime configuration across sessions such that a TorchServe instance experiencing either a planned or unplanned service stop can restore its state upon restart.</p>
+<p>A TorchServe’s snapshot consists of following:</p>
+<ul class="simple">
+<li>Server configuration, which comprises: Which models are running, which versions of those models, and how many workers are active for each model.</li>
+<li>Default server configuration used while starting TorchServe the first time.</li>
 </ul>
-</div>
-<div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">TorchServe Usage</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="server.html">Running TorchServe</a></li>
-<li class="toctree-l1"><a class="reference internal" href="batch_inference_with_ts.html">Batch Inference with TorchServe</a></li>
-<li class="toctree-l1"><a class="reference internal" href="custom_service.html">Custom Service</a></li>
+<p>The snapshot is taken at following instances -</p>
+<ul class="simple">
+<li>After successful startup, the server stores its current configuration in a timestamped snapshot file ./logs/configs/<yyyyMMddHHmmssSSS>-startup.cfg</li>
+<li>If a user calls the Management API in a way that changes the server runtime config, snapshot is saved to ./logs/configs/<yyyyMMddHHmmssSSS>-snapshot.cfg</li>
+<li>When the server is shut down intentionally with <code class="docutils literal"><span class="pre">torchserve</span> <span class="pre">--stop</span></code>, snapshot is saved to ./logs/configs/<yyyyMMddHHmmssSSS>-shutdown.cfg</li>
 </ul>
-</div>
+<p>User can use snapshots to restore the TorchServe’s state as follows :</p>
+<ul class="simple">
+<li>If no config file is supplied with <code class="docutils literal"><span class="pre">--ts-config-file</span></code> flag while starting TorchServe, last snapshot in ./logs/configs is used for startup.</li>
+<li>If no config file is supplied with <code class="docutils literal"><span class="pre">--ts-config-file</span></code> flag and no snapshots are available, TorchServe starts with default configurations.</li>
+<li>The user restarts the server specifying this config file: <code class="docutils literal"><span class="pre">torchserve</span> <span class="pre">--start</span> <span class="pre">--model-store</span> <span class="pre">&lt;model</span> <span class="pre">store&gt;</span> <span class="pre">--ts-config</span> <span class="pre">&lt;known</span> <span class="pre">good</span> <span class="pre">config</span> <span class="pre">snapshot&gt;</span></code></li>
+</ul>
+<p>If the user wishes to start without this resiliency feature, the user can start the server with :</p>
+<p><code class="docutils literal"><span class="pre">torchserve</span> <span class="pre">--start</span> <span class="pre">--model-store</span> <span class="pre">&lt;model</span> <span class="pre">store&gt;</span> <span class="pre">--no-config-snapshots</span></code></p>
+<p>This prevents to server from storing config snapshot files.</p>
+<p>The snapshots are by default in <code class="docutils literal"><span class="pre">{LOG_LOCATION}\config</span></code> directory, where <code class="docutils literal"><span class="pre">{LOG_LOCATION}</span></code> is a system environment variable that can be used by TorchServe. If this variable is not set, the snapshot is stored in  <code class="docutils literal"><span class="pre">.\log\config</span></code> directory</p>
+<p><strong>Note</strong> : Models passed in –models parameter while starting TorchServe are ignored if restoring from a snapshot.</p>
 </div>
 
 
@@ -314,13 +305,6 @@
              
             </div>
             <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="inference_api.html" class="btn btn-neutral float-right" title="Inference API" accesskey="n" rel="next">Next <img src="_static/images/chevron-right-orange.svg" class="next-page"></a>
-      
-      
-    </div>
   
 
   
@@ -350,9 +334,7 @@
           <div class="pytorch-right-menu" id="pytorch-right-menu">
             <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
               <ul>
-<li><a class="reference internal" href="#">TorchServe</a><ul>
-</ul>
-</li>
+<li><a class="reference internal" href="#">TorchServe model snapshot</a></li>
 </ul>
 
             </div>
